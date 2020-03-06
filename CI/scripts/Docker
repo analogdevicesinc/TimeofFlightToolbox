@@ -8,3 +8,4 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y fakeroot libncurses5-dev l
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libssl-dev mtools bc python cpio zip unzip rsync file wget
 RUN DEBIAN_FRONTEND=noninteractive dpkg --add-architecture i386
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y lib32stdc++6 cmake
+RUN DEBIAN_FRONTEND=noninteractive apt-get remove -y protobuf-compiler
