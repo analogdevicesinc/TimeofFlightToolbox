@@ -17,8 +17,8 @@ cd(fileparts((mfilename('fullpath'))));
 
 if examples
     fid  = fopen('bsp.tmpl','r');
-%else
-    %error('Non-Examples build not available');
+else
+    error('Non-Examples build not available');
 end
 f=fread(fid,'*char')';
 fclose(fid);
