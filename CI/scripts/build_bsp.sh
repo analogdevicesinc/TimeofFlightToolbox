@@ -41,6 +41,7 @@ cmake -DWITH_EXAMPLES=off -DWITH_MATLAB=on -DMatlab_ROOT_DIR=/usr/local/MATLAB/"
 make
 
 # Move file
+cd `dirname "$BASH_SOURCE"`
 ADAPTOR="/tmp/aditof_sdk/build/bindings/matlab/aditofadapter.so"
 if test -f "$ADAPTOR"; then
     mkdir "$scriptdir/../../deps"
