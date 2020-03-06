@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 # Script is designed to run from specific location
 scriptdir=`dirname "$BASH_SOURCE"`
 cd $scriptdir
