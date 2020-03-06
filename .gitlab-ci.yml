@@ -1,0 +1,55 @@
+stages:
+  - build
+  - test
+  - test_installer
+  - test_hardware
+  - deploy
+
+#####################################
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+#####################################
+# Templates
+.installer_tests:
+    tags:
+     - vivado
+     - matlab
+    stage: test_installer
+    dependencies:
+     - build:2018_R2
+    artifacts:
+        when: always
+        name: "$CI_COMMIT_REF_NAME"
+        paths:
+            - test/logs/
+            - mltbx/
+            - zip/
+            - Report.pdf
+            - test/logs/
+        reports:
+            junit: test/BSPTestResults.xml
+
+#####################################
+
+# Default build
+build:v1.2.0:
+    tags:
+     - vivado
+     - matlab
+    stage: build
+    script:
+     - export MLRELEASE=R2019b
+     - ./CI/scripts/dockermake build
+     - export INCLUDE_EXAMPLES=1
+     - ./CI/scripts/dockermake gen_tlbx
+     - export INCLUDE_EXAMPLES=0
+     - ./CI/scripts/dockermake gen_tlbx
+     - mkdir mltbx
+     - ls *.mltbx
+     - cp *.mltbx mltbx/
+    artifacts:
+        paths:
+            - hdl/
+            - mltbx/
