@@ -42,8 +42,6 @@ build:v1.2.0:
      - export MLRELEASE=R2019b
      - export TOFBRANCH=v1.2.0
      - ./CI/scripts/dockermake build
-     - export INCLUDE_EXAMPLES=1
-     - ./CI/scripts/dockermake gen_tlbx
      - export INCLUDE_EXAMPLES=0
      - ./CI/scripts/dockermake gen_tlbx
      - mkdir mltbx
@@ -61,8 +59,6 @@ build:v1.2.1:
      - export MLRELEASE=R2019b
      - export TOFBRANCH=v1.2.1
      - ./CI/scripts/dockermake build
-     - export INCLUDE_EXAMPLES=1
-     - ./CI/scripts/dockermake gen_tlbx
      - export INCLUDE_EXAMPLES=0
      - ./CI/scripts/dockermake gen_tlbx
      - mkdir mltbx
@@ -80,8 +76,6 @@ build:master:
      - export MLRELEASE=R2019b
      - export TOFBRANCH=master
      - ./CI/scripts/dockermake build
-     - export INCLUDE_EXAMPLES=1
-     - ./CI/scripts/dockermake gen_tlbx
      - export INCLUDE_EXAMPLES=0
      - ./CI/scripts/dockermake gen_tlbx
      - mkdir mltbx
