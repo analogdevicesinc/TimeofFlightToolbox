@@ -36,11 +36,11 @@ variables:
 # Default build
 build:v1.2.0:
     tags:
-     - vivado
      - matlab
     stage: build
     script:
      - export MLRELEASE=R2019b
+     - export TOFBRANCH=v1.2.0
      - ./CI/scripts/dockermake build
      - export INCLUDE_EXAMPLES=1
      - ./CI/scripts/dockermake gen_tlbx
@@ -51,5 +51,42 @@ build:v1.2.0:
      - cp *.mltbx mltbx/
     artifacts:
         paths:
-            - hdl/
+            - mltbx/
+
+build:v1.2.1:
+    tags:
+     - matlab
+    stage: build
+    script:
+     - export MLRELEASE=R2019b
+     - export TOFBRANCH=v1.2.1
+     - ./CI/scripts/dockermake build
+     - export INCLUDE_EXAMPLES=1
+     - ./CI/scripts/dockermake gen_tlbx
+     - export INCLUDE_EXAMPLES=0
+     - ./CI/scripts/dockermake gen_tlbx
+     - mkdir mltbx
+     - ls *.mltbx
+     - cp *.mltbx mltbx/
+    artifacts:
+        paths:
+            - mltbx/
+
+build:release:
+    tags:
+     - matlab
+    stage: build
+    script:
+     - export MLRELEASE=R2019b
+     - export TOFBRANCH=master
+     - ./CI/scripts/dockermake build
+     - export INCLUDE_EXAMPLES=1
+     - ./CI/scripts/dockermake gen_tlbx
+     - export INCLUDE_EXAMPLES=0
+     - ./CI/scripts/dockermake gen_tlbx
+     - mkdir mltbx
+     - ls *.mltbx
+     - cp *.mltbx mltbx/
+    artifacts:
+        paths:
             - mltbx/

@@ -37,7 +37,7 @@ GITTAG := $(shell git describe --tags HEAD)
 
 .ONESHELL:
 build:
-	# Uses the HDLBRANCH variable
+	# Uses the TOFBRANCH variable
 	bash build_bsp.sh
 
 test_installer:
