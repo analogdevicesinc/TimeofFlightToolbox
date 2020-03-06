@@ -5,8 +5,6 @@ scriptdir=`dirname "$BASH_SOURCE"`
 cd $scriptdir
 cd ..
 
-apt install cmake
-
 cd /tmp/
 git clone --branch v0.3.5 --depth 1 https://github.com/google/glog
 cd glog
