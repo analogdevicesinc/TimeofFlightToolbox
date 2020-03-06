@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Load the adaptor
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-imaqregister([pwd, '\aditofadapter.dll']); % when running on Linux load the aditofadapter.so
+imaqregister(adi.TOFAdaptor); % when running on Linux load the aditofadapter.so
 imaqreset;
 imaqhwinfo
 
@@ -17,8 +17,8 @@ vid = videoinput('aditofadapter');
 %%% Set the camera to output Depth and the mode to Near range
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 src = getselectedsource(vid); 
-src.FrameType = ‘Depth’;
-src.CameraMode = ‘Near’;
+src.FrameType = 'Depth';
+src.CameraMode = 'Near';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Play the depth video stream for a number of frames
@@ -35,8 +35,8 @@ stop(vid);
 %%% Set the camera to output IR and the mode to Medium range
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 src = getselectedsource(vid); 
-src.FrameType = ‘Ir’;
-src.CameraMode = ‘Medium’;
+src.FrameType = 'Ir';
+src.CameraMode = 'Medium';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Play the IR video stream for number of frames

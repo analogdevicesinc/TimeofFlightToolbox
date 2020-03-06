@@ -12,6 +12,22 @@ variables:
 
 #####################################
 # Templates
+
+.src_tests:
+    tags:
+     - matlab
+    stage: test
+    dependencies:
+     - build:v1.2.0
+    artifacts:
+        when: always
+        name: "$CI_COMMIT_REF_NAME"
+        paths:
+            - test/logs/
+            - Report.pdf
+        reports:
+            junit: test/BSPTestResults.xml
+
 .installer_tests:
     tags:
      - vivado
@@ -50,8 +66,9 @@ build:v1.2.0:
     artifacts:
         paths:
             - mltbx/
+            - deps/
 
-build:v1.2.1:
+build:master:
     tags:
      - matlab
     stage: build
@@ -67,20 +84,13 @@ build:v1.2.1:
     artifacts:
         paths:
             - mltbx/
+            - deps/
 
-build:master:
-    tags:
-     - matlab
-    stage: build
+#####################################
+
+# Test HWA no install
+test:v1.2.0:
+    extends: .src_tests
     script:
      - export MLRELEASE=R2019b
-     - export TOFBRANCH=master
-     - ./CI/scripts/dockermake build
-     - export INCLUDE_EXAMPLES=1
-     - ./CI/scripts/dockermake gen_tlbx
-     - mkdir mltbx
-     - ls *.mltbx
-     - cp *.mltbx mltbx/
-    artifacts:
-        paths:
-            - mltbx/
+     - ./CI/scripts/dockermake test
