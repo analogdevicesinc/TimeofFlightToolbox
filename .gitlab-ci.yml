@@ -72,7 +72,7 @@ build:v1.2.1:
         paths:
             - mltbx/
 
-build:release:
+build:master:
     tags:
      - matlab
     stage: build
