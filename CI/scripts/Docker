@@ -7,4 +7,5 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-8-jre openjdk-8-jd
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y fakeroot libncurses5-dev libssl-dev ccache dfu-util u-boot-tools device-tree-compiler
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libssl-dev mtools bc python cpio zip unzip rsync file wget
 RUN DEBIAN_FRONTEND=noninteractive dpkg --add-architecture i386
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y lib32stdc++6
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y lib32stdc++6 cmake
+RUN DEBIAN_FRONTEND=noninteractive apt-get remove -y protobuf-compiler
