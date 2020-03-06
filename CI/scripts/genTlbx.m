@@ -36,7 +36,7 @@ addpath(genpath(matlabshared.supportpkg.getSupportPackageRoot));
 addpath(genpath('.'));
 rmpath(genpath('.'));
 if examples
-    ps = {'doc','hsx_examples'};
+    ps = {'doc','tof_examples'};
 else
     ps = {'doc'};
 end
@@ -53,9 +53,9 @@ rehash
 projectFile = 'bsp.prj';
 currentVersion = matlab.addons.toolbox.toolboxVersion(projectFile);
 if examples
-    outputFile = ['AnalogDevicesHighSpeedConverterToolbox_v',currentVersion];
+    outputFile = ['AnalogDevicesTimeofFlightToolbox_v',currentVersion];
 else
-    outputFile = ['AnalogDevicesHighSpeedConverterToolbox_noexamples_v',currentVersion];
+    outputFile = ['AnalogDevicesTimeofFlightToolbox_noexamples_v',currentVersion];
 end
 matlab.addons.toolbox.packageToolbox(projectFile,outputFile)
 

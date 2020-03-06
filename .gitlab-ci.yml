@@ -12,6 +12,22 @@ variables:
 
 #####################################
 # Templates
+
+.src_tests:
+    tags:
+     - matlab
+    stage: test
+    dependencies:
+     - build:v1.2.0
+    artifacts:
+        when: always
+        name: "$CI_COMMIT_REF_NAME"
+        paths:
+            - test/logs/
+            - Report.pdf
+        reports:
+            junit: test/BSPTestResults.xml
+
 .installer_tests:
     tags:
      - vivado
@@ -44,33 +60,13 @@ build:v1.2.0:
      - ./CI/scripts/dockermake build
      - export INCLUDE_EXAMPLES=1
      - ./CI/scripts/dockermake gen_tlbx
-     - export INCLUDE_EXAMPLES=0
-     - ./CI/scripts/dockermake gen_tlbx
      - mkdir mltbx
      - ls *.mltbx
      - cp *.mltbx mltbx/
     artifacts:
         paths:
             - mltbx/
-
-build:v1.2.1:
-    tags:
-     - matlab
-    stage: build
-    script:
-     - export MLRELEASE=R2019b
-     - export TOFBRANCH=v1.2.1
-     - ./CI/scripts/dockermake build
-     - export INCLUDE_EXAMPLES=1
-     - ./CI/scripts/dockermake gen_tlbx
-     - export INCLUDE_EXAMPLES=0
-     - ./CI/scripts/dockermake gen_tlbx
-     - mkdir mltbx
-     - ls *.mltbx
-     - cp *.mltbx mltbx/
-    artifacts:
-        paths:
-            - mltbx/
+            - deps/
 
 build:master:
     tags:
@@ -78,11 +74,9 @@ build:master:
     stage: build
     script:
      - export MLRELEASE=R2019b
-     - export TOFBRANCH=master
+     - export TOFBRANCH=fix-matlab-adaptor-build
      - ./CI/scripts/dockermake build
      - export INCLUDE_EXAMPLES=1
-     - ./CI/scripts/dockermake gen_tlbx
-     - export INCLUDE_EXAMPLES=0
      - ./CI/scripts/dockermake gen_tlbx
      - mkdir mltbx
      - ls *.mltbx
@@ -90,3 +84,13 @@ build:master:
     artifacts:
         paths:
             - mltbx/
+            - deps/
+
+#####################################
+
+# Test HWA no install
+test:v1.2.0:
+    extends: .src_tests
+    script:
+     - export MLRELEASE=R2019b
+     - ./CI/scripts/dockermake test

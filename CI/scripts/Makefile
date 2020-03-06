@@ -47,14 +47,11 @@ test_installer:
 
 test:
 	cd ../.. ; \
-	${MLPATH}/$(MLRELEASE)/bin/matlab $(MLFLAGS) -r "cd('test');runTests('$(BOARD)');"
+	${MLPATH}/$(MLRELEASE)/bin/matlab $(MLFLAGS) -r "addpath(genpath('test'));addpath(genpath('deps'));runTests('$(BOARD)');"
 
 test_streaming:
 	cd ../.. ; \
 	${MLPATH}/$(MLRELEASE)/bin/matlab $(MLFLAGS) -r "addpath(genpath('test'));runHWTests;"
-
-test_synth:
-	bash synth_designs.sh
 
 gen_tlbx:
 	${MLPATH}/$(MLRELEASE)/bin/matlab $(MLFLAGS) -r "genTlbx($(INCLUDE_EXAMPLES));exit();"

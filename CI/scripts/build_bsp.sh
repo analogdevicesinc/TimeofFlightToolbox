@@ -37,3 +37,12 @@ git checkout "$TOFBRANCH"
 mkdir build && cd build
 cmake -DWITH_EXAMPLES=off -DWITH_MATLAB=on -DMatlab_ROOT_DIR=/usr/local/MATLAB/"$MLRELEASE" -DCMAKE_PREFIX_PATH="/opt/glog;/opt/protobuf;/opt/websockets" ..
 make
+
+# Move file
+ADAPTOR="/tmp/aditof_sdk/build/bindings/matlab/aditofadapter.so"
+if test -f "$ADAPTOR"; then
+    mkdir "$scriptdir/../../deps"
+    cp $ADAPTOR "$scriptdir/../../deps"
+else
+    exit 22
+fi
