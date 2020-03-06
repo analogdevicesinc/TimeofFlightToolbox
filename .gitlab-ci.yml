@@ -57,7 +57,7 @@ build:v1.2.1:
     stage: build
     script:
      - export MLRELEASE=R2019b
-     - export TOFBRANCH=v1.2.1
+     - export TOFBRANCH=fix-matlab-adaptor-build
      - ./CI/scripts/dockermake build
      - export INCLUDE_EXAMPLES=1
      - ./CI/scripts/dockermake gen_tlbx
