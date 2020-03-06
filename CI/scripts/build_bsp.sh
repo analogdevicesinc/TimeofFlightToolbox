@@ -5,6 +5,7 @@ set -ex
 # Script is designed to run from specific location
 scriptdir=`dirname "$BASH_SOURCE"`
 cd $scriptdir
+targetdir=`pwd`
 cd ..
 
 cd /tmp/
@@ -41,10 +42,14 @@ cmake -DWITH_EXAMPLES=off -DWITH_MATLAB=on -DMatlab_ROOT_DIR=/usr/local/MATLAB/"
 make
 
 # Move file
+cd `dirname "$BASH_SOURCE"`
 ADAPTOR="/tmp/aditof_sdk/build/bindings/matlab/aditofadapter.so"
 if test -f "$ADAPTOR"; then
-    mkdir "$scriptdir/../../deps"
-    cp $ADAPTOR "$scriptdir/../../deps"
+    mkdir "$targetdir/../../deps"
+    pwd
+    echo $targetdir
+    cp $ADAPTOR "$targetdir/../../deps/"
+    ls /work/deps
 else
     exit 22
 fi
