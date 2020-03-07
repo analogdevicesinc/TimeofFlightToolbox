@@ -93,4 +93,6 @@ test:v1.2.0:
     extends: .src_tests
     script:
      - export MLRELEASE=R2019b
+     - ls
+     - ls deps/
      - ./CI/scripts/dockermake test
