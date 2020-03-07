@@ -48,7 +48,8 @@ if test -f "$ADAPTOR"; then
     mkdir "$targetdir/../../deps"
     pwd
     echo $targetdir
-    cp $ADAPTOR "$targetdir/../../deps"
+    cp $ADAPTOR "$targetdir/../../deps/"
+    ls /work/deps
 else
     exit 22
 fi
