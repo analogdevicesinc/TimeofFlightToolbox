@@ -47,7 +47,7 @@ test_installer:
 
 test:
 	cd ../.. ; \
-	${MLPATH}/$(MLRELEASE)/bin/matlab $(MLFLAGS) -r "addpath(genpath('test'));addpath(genpath('deps'));runTests('$(BOARD)');"
+	${MLPATH}/$(MLRELEASE)/bin/matlab $(MLFLAGS) -r "addpath(genpath('test'));addpath(genpath('deps'));disp(ls('deps'));runTests('$(BOARD)');"
 
 test_streaming:
 	cd ../.. ; \
