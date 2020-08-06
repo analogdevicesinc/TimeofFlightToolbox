@@ -1,5 +1,8 @@
 classdef BSPTests < matlab.unittest.TestCase
     
+    properties
+        IP = "192.168.86.53";
+    end
     methods(TestClassSetup)
         function removeinstalledbsp(~)
             str = 'Analog Devices';
@@ -11,10 +14,21 @@ classdef BSPTests < matlab.unittest.TestCase
                 end
             end
         end
-        % Add the necessary files to path
-        function addbspfiles(~)
-            addpath(genpath('../hdl'));
+        function changeRunLocation(~)
+           testDir = fileparts(which(mfilename));
+           out = strsplit(testDir,filesep);
+           out = out(1:end-1);
+           if isunix
+               out = fullfile('/',out{:});
+           else
+               out = fullfile(out{:});
+           end
+           cd(out);
         end
+        % Add the necessary files to path
+%         function addbspfiles(~)
+%             addpath(genpath('../hdl'));
+%         end
     end
     
     methods(TestClassTeardown)
@@ -37,12 +51,14 @@ classdef BSPTests < matlab.unittest.TestCase
             imaqreset;
         end
         
-        function testVideoInputCall(~)
+        function testVideoInputCall(testCase)
             imaqregister(adi.TOFAdaptor);
             imaqreset;
             imaqhwinfo
             % USB connection
-            videoinput('aditofadapter');
+%             videoinput('aditofadapter');
+            % IP connection
+            videoinput('aditofadapter', 1, testCase.IP);
             % Done
             imaqregister(adi.TOFAdaptor,'unregister');
             imaqreset;

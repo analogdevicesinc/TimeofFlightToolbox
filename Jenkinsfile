@@ -4,7 +4,6 @@ pipeline {
         stage('Setup') {
             steps {
                 checkout scm
-                //bat "mkdir ${env.WORKSPACE}\\build"
                 bat "mkdir build"
                 dir("build")
                 {
@@ -50,7 +49,7 @@ pipeline {
                       dir('build')
                       {
                           //bat 'cmake -DCMAKE_PREFIX_PATH="C:/projects/aditof-sdk/build/glog/build_0_3_5/local_path/glog;C:/projects/aditof-sdk/build/protobuf\build_3_9_0/local_path/protobuf;C:/projects/aditof-sdk/build/libwebsockets/build_3_1/local_path/websockets" -G "Visual Studio 15 2017 Win64" -DOPENSSL_INCLUDE_DIRS="C:/Program Files/OpenSSL-Win64/include" -DWITH_EXAMPLES=off ..'
-                          bat 'cmake -DWITH_EXAMPLES=off -DWITH_MATLAB=on -DMatlab_ROOT_DIR="C:/Program Files/MATLAB/R2019b" -DCMAKE_PREFIX_PATH="${env.WORKSPACE}\\..\\..\\..\\build\\glog;${env.WORKSPACE}\\..\\..\\..\\build\\protobuf;${env.WORKSPACE}\\..\\..\\..\\build\\websockets" -G "Visual Studio 15 2017 Win64" -DOPENSSL_INCLUDE_DIRS="C:/Program Files/OpenSSL-Win64/include" ..'
+                          bat 'cmake -DWITH_EXAMPLES=off -DWITH_MATLAB=on -DMatlab_ROOT_DIR="C:/Program Files/MATLAB/R2020a" -DCMAKE_PREFIX_PATH="${env.WORKSPACE}\\..\\..\\..\\build\\glog;${env.WORKSPACE}\\..\\..\\..\\build\\protobuf;${env.WORKSPACE}\\..\\..\\..\\build\\websockets" -G "Visual Studio 15 2017 Win64" -DOPENSSL_INCLUDE_DIRS="C:/Program Files/OpenSSL-Win64/include" ..'
                           bat 'cmake --build . --config Release'
                       }
                   }
@@ -64,7 +63,7 @@ pipeline {
         }
         stage('Package') {
             steps {
-                dir "mkdir deps"
+                bat "mkdir deps"
                 dir("build")
                 {
                   bat 'dir aditof_sdk\\build\\'
@@ -75,6 +74,20 @@ pipeline {
                 // bat 'copy C:\\Program Files\\OpenSSL-Win64\\bin\\libeay32.dll package\\'
                 // bat 'copy C:\\Program Files\\OpenSSL-Win64\\bin\\ssleay32.dll package\\'
                 archiveArtifacts 'deps\\*'
+            }
+        }
+        stage('Package Toolbox') {
+            steps {
+                bat "rd /s /q build"
+                dir('CI')
+                {
+                    dir('scripts')
+                    {
+                        bat '"C:\\Program Files\\MATLAB\\R2020a\\bin\\matlab" -nodisplay -nodesktop -nosplash -wait -r "genTlbx(true);exit();"'
+                    }
+                }
+                bat 'dir'
+                archiveArtifacts '*.mltbx'
             }
         }
     }
