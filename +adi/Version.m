@@ -2,8 +2,8 @@ classdef Version
     %Version
     %   BSP Version information
     properties(Constant)
-        MATLAB = 'R2019b';
-        Release = '19.2.1';
+        MATLAB = 'R2020a';
+        Release = '20.1.1';
     end
     properties(Dependent)
         VivadoShort
