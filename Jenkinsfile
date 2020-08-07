@@ -75,6 +75,11 @@ pipeline {
         }
         stage('Package Toolbox') {
             steps {
+                bat "copy build\\protobuf\\LICENSE LICENSE_PROTOBUF"
+                bat "copy build\\libwebsockets\\LICENSE LICENSE_LIBWEBSOCKETS"
+                bat "copy build\\glog\\COPYING LICENSE_GLOG"
+                bat "wget https://raw.githubusercontent.com/openssl/openssl/master/LICENSE.txt -O LICENSE_OPENSSL"
+                bat "del Jenkinsfile"
                 bat "rd /s /q build"
                 dir('CI')
                 {
